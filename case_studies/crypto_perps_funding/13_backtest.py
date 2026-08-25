@@ -425,7 +425,11 @@ for label in labels:
             population_name=f"crypto-signal-{label}-{scheme['name']}-{POPULATION_SUFFIX}",
         )
         executions.append((label, scheme["name"], execution))
-        print(f"{label} / {scheme['name']}: {len(execution.results)} backtests registered")
+        print(
+            f"{label} / {scheme['name']}: {len(execution.results)} backtests registered\n"
+            f"  this execution: {execution.n_computed} computed, "
+            f"{execution.n_reused} served from the registry"
+        )
 
 # %% [markdown]
 # ### The candidate set each label hands on

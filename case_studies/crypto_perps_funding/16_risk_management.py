@@ -225,7 +225,11 @@ for label in labels:
             chapter="ch19",
             population_name=f"crypto-risk-{label}-{control['name']}-{POPULATION_SUFFIX}",
         )
-        print(f"{label} / {control['name']}: {len(execution.results)} backtests registered")
+        print(
+            f"{label} / {control['name']}: {len(execution.results)} backtests registered\n"
+            f"  this execution: {execution.n_computed} computed, "
+            f"{execution.n_reused} served from the registry"
+        )
 
 # %% [markdown]
 # ## 4. What came out

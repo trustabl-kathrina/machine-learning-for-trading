@@ -282,7 +282,9 @@ for label in labels:
             )
             print(
                 f"{label} / {scheme['name']} / {allocator['method']}: "
-                f"{len(execution.results)} backtests registered"
+                f"{len(execution.results)} backtests registered\n"
+                f"  this execution: {execution.n_computed} computed, "
+                f"{execution.n_reused} served from the registry"
             )
 
 # %% [markdown]

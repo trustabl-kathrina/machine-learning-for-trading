@@ -196,7 +196,11 @@ for label in labels:
             chapter="ch18",
             population_name=f"crypto-cost-{label}-{level:g}bps-{POPULATION_SUFFIX}",
         )
-        print(f"{label} @ {level:g} bps: {len(execution.results)} backtests registered")
+        print(
+            f"{label} @ {level:g} bps: {len(execution.results)} backtests registered\n"
+            f"  this execution: {execution.n_computed} computed, "
+            f"{execution.n_reused} served from the registry"
+        )
 
 # %% [markdown]
 # ## 4. What came out
