@@ -298,7 +298,7 @@ if overlay_without_rule.height:
         "rule: they measure the unprotected book"
     )
     results = results.filter(
-        ~pl.col("backtest_hash").is_in(overlay_without_rule.get_column("backtest_hash"))
+        ~pl.col("backtest_hash").is_in(overlay_without_rule.get_column("backtest_hash").implode())
     )
 if results.filter(~pl.col("complete")).height:
     raise RuntimeError("the backtest catalog contains incomplete members")
@@ -451,7 +451,9 @@ for label in labels:
     admitted = label_rows.filter(pl.col("traded_folds") == full)
     excluded = label_rows.height - admitted.height
     members = study.backtests.freeze(
-        results.filter(pl.col("backtest_hash").is_in(admitted.get_column("backtest_hash"))),
+        results.filter(
+            pl.col("backtest_hash").is_in(admitted.get_column("backtest_hash").implode())
+        ),
         name=f"crypto-final-validation-{label}",
         supersedes=SUPERSEDES.get(label),
     )

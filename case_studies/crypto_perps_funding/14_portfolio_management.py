@@ -140,7 +140,7 @@ if survivors.is_empty():
 
 # %% tags=["results"]
 catalog = study.predictions.table().filter(
-    pl.col("prediction_hash").is_in(survivors.get_column("prediction_hash"))
+    pl.col("prediction_hash").is_in(survivors.get_column("prediction_hash").implode())
 )
 if catalog.height != survivors.height:
     raise RuntimeError("a surviving prediction is absent from the prediction catalog")
@@ -518,7 +518,9 @@ for label in labels:
     admitted = label_rows.filter(pl.col("traded_folds") == full)
     excluded = label_rows.height - admitted.height
     members = study.backtests.freeze(
-        results.filter(pl.col("backtest_hash").is_in(admitted.get_column("backtest_hash"))),
+        results.filter(
+            pl.col("backtest_hash").is_in(admitted.get_column("backtest_hash").implode())
+        ),
         name=f"crypto-signal-allocation-{label}",
         supersedes=SUPERSEDES.get(label),
     )
